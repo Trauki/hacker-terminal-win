@@ -1,6 +1,6 @@
 # Hacker Terminal (Windows)
 
-Simulates "hacker-style" text as random keys are pressed. Designed for aesthetic or cinematic use.
+Displays "hacker-style" text as random keys are pressed. Designed for aesthetic or cinematic use.
 
 ## Guide
 
