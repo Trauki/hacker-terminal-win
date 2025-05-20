@@ -1,0 +1,131 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Class="HackerTerminal.Views.MainWindow"
+        x:CompileBindings="True"
+        Icon="/Assets/command-line-icon.png"
+        Title="HackerTerminal"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="64"
+        >
+
+     <Window.Styles>
+        <!-- Button Styles -->
+        <Style Selector="Button">
+            <!-- Default light gray -->
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="32"/>
+            <!-- Hover slighty darker gray -->
+            <Style Selector="^:pointerover">
+                <Setter Property="Background" Value="#424242"/>
+            </Style>
+        </Style>
+        <Style Selector="Window[WindowState=Maximized]">
+            <Setter Property="Padding" Value="8" />
+        </Style>
+        <Style Selector="Grid.TransGrid">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
+    </Window.Styles>
+    <Grid Background="#0f0f0f">
+
+        <!-- Row Definitions -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Title bar -->
+            <RowDefinition Height="*"/> <!-- Everything else -->
+            <RowDefinition Height="Auto"/> <!-- Micro text editor bar -->
+        </Grid.RowDefinitions>
+
+        <!-- Custom title bar -->
+        <Grid Grid.Row="0" VerticalAlignment="Top" Background="#333333" PointerPressed="TitleBar_PointerPressed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="/Assets/command-line-icon.png" Margin="10,0,0,0" Width="20" Height="20"/>
+
+            <!-- Centered Title -->
+            <TextBlock Grid.Column="1" Text="Shell Terminal"
+                    Foreground="#CCCCCC"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    Margin="150,0,0,0" 
+                    />
+
+            <!-- Right Side Buttons -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Name="MinimizeButton" Click="MinimizeButton_Click">
+                    <Grid Classes="TransGrid">
+                        <Path Data="{StaticResource line_horizontal_1_regular}"
+                            Fill="#CCCCCC" Margin="0,-2,0,0"/>
+                    </Grid>
+                </Button>
+                <Button Name="MaximizeButton" Click="MaximizeButton_Click">
+                    <Grid Classes="TransGrid">
+                        <Path Name="MaximizeIcon" 
+                            Data="{StaticResource maximize_regular}"
+                            Fill="#CCCCCC" Margin="-2,0,2,0"/>
+                    </Grid>
+                </Button>
+                <Button Name="CloseButton" Click="CloseButton_Click">
+                    <Grid Classes="TransGrid">
+                        <Path Data="M4 14 14 4m0 10L4 4"
+                            Stroke="#CCCCCC"
+                            StrokeThickness="1"
+                            StrokeLineCap="Round"/>
+                    </Grid>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <!-- User Interface (everything below titlebar) -->
+        <ScrollViewer Grid.Row="1" AllowAutoHide="false" Name="MainScrollViewer">
+            <StackPanel >
+                <!-- Generic terminal/CMD text -->
+                <DockPanel Name="ShellText" Margin="16,12,16,10">
+                    <TextBlock Foreground="#CCCCCC" FontFamily="Consolas" FontSize="16" DockPanel.Dock="Top">Windows Shell Terminal</TextBlock>
+                    <TextBlock Foreground="#CCCCCC" FontFamily="Consolas" FontSize="16" DockPanel.Dock="Top">(c) Microsoft Corporation. All rights reserved.</TextBlock>
+                </DockPanel>
+                <!-- Hacker typing display -->
+                <DockPanel Name="TerminalOutputPanel" Margin="16,0,16,16">
+                    <TextBlock Name="LineNumbers"
+                       Text="1"
+                       Foreground="#b8b8b8"
+                       FontFamily="Consolas"
+                       FontSize="16"
+                       Margin="8,8,4,0"
+                       IsVisible="false"
+                       VerticalAlignment="Top"
+                       TextAlignment="Right"/>
+                    <TextBlock Name="ShellTextPath" Margin="0,0,4,0" Foreground="#CCCCCC" FontFamily="Consolas" FontSize="16" DockPanel.Dock="Left" Text="C:\Users\Trauki>"/>
+                    <!-- Lime green color code: #00FF00 -->
+                    <TextBlock Name="TerminalOutput" Margin="16,0,16,0" Foreground="#CCCCCC" FontFamily="Consolas" FontSize="16" TextWrapping="Wrap" />
+                </DockPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- White grid mimicking the micro text editor display -->
+        <Grid Name="MicroActiveGrid" IsVisible="false" Grid.Row="2" Margin="12,0,12,20" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="CursorPositionText" FontFamily="Cascadia Mono" Foreground="Black" FontSize="16" Grid.Column="0" Text="resolver.c (1,1) | ft:c | dos | utf-8"/>
+            <TextBlock FontFamily="Cascadia Mono" Foreground="Black" FontSize="16" Grid.Column="1" Text=""/>
+            <TextBlock FontFamily="Cascadia Mono" Foreground="Black" FontSize="16" Grid.Column="2" Text="Alt-g: bindings, Ctrl-g: help"/>
+        </Grid>
+
+    </Grid>
+</Window>

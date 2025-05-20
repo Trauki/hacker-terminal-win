@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+
+    <!-- Native AOT (Ahead-of-Time Compilation) settings -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <GenerateFullPaths>true</GenerateFullPaths>
+
+    <!-- Optional: use if you plan on adding a custom app.manifest -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+
+     <!-- Removes .pdb file from single file executable (comment these two lines out when debugging)-->
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+ 
+
+  <ItemGroup>
+    <!-- Include assets like images, icons, etc. -->
+    <AvaloniaResource Include="Assets/**"/>
+    <AvaloniaResource Include="Icons.axaml"/>
+    <AvaloniaResource Include="Themes/CustomScrollViewer.axaml" />
+    <AvaloniaResource Include="Themes/CustomScrollBar.axaml" />
+    <!-- Prevent certain Avalonia controls/themes from being trimmed out -->
+    <TrimmerRootAssembly Include="Avalonia.Controls" />
+    <TrimmerRootAssembly Include="HackerTerminal" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Core Avalonia packages -->
+    <PackageReference Include="Avalonia" Version="11.2.6"/>
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.6"/>
+  </ItemGroup>
+
+</Project>

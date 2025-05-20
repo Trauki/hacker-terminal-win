@@ -1,0 +1,95 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    x:ClassModifier="internal">
+
+  <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+    
+    <!-- Vertical ScrollBar -->
+    <Style Selector="^:vertical">
+      <Setter Property="Width" Value="16" />
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="#111">
+            <Grid x:Name="grid" Background="#0f0f0f" RowDefinitions="Auto,*,Auto">
+              
+              <!-- Up Button -->
+              <RepeatButton Name="PART_LineUpButton"
+                          Grid.Row="0"
+                          MinHeight="12"
+                          Focusable="False"
+                          Opacity="0"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Padding="0,6,0,6">
+                <Path Fill="#9a9a9a" Data="M4.3027.1888C4.4306.2619 4.5366.3679 4.6097.4958L8.1381 6.6705C8.3641 7.0661 8.2267 7.57 7.8311 7.7961 7.7064 7.8673 7.5653 7.9048 7.4218 7.9048L.365 7.9048C-.0906 7.9048-.46 7.5354-.46 7.0798-.46 6.9362-.4225 6.7951-.3513 6.6705L3.1771.4958C3.4031.1002 3.9071-.0372 4.3027.1888Z" />
+              </RepeatButton>
+
+              <!-- Track -->
+              <Track Grid.Row="1"
+                     Orientation="Vertical"
+                     Value="{TemplateBinding Value,Mode=TwoWay}"
+                     Minimum="{TemplateBinding Minimum}"
+                     Maximum="{TemplateBinding Maximum}"
+                     ViewportSize="{TemplateBinding ViewportSize}"
+                     DeferThumbDrag="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                     IsDirectionReversed="True">
+                <Track.DecreaseButton>
+                  <RepeatButton Focusable="False" Background="#333333" Opacity="0" />
+                </Track.DecreaseButton>
+                <Track.IncreaseButton>
+                  <RepeatButton Focusable="False" Background="#333333" Opacity="0" />
+                </Track.IncreaseButton>
+                <Thumb Name="thumb"
+                       MinHeight="12"
+                       Width="2"
+                       Background="#8a8a8a"/>
+              </Track>
+
+              <!-- Down Button -->
+              <RepeatButton Name="PART_LineDownButton"
+                          Grid.Row="2"
+                          MinHeight="12"
+                          Focusable="False"
+                          Opacity="0"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Padding="0,6,0,6">
+                <Path Fill="#9a9a9a" Data="M3.7973 7.8112C3.6694 7.7381 3.5634 7.6321 3.4903 7.5042L-.0381 1.3295C-.2641.9339-.1267.43.2689.2039.3936.1327.5347.0952.6782.0952L7.735.0952C8.1906.0952 8.56.4646 8.56.9202 8.56 1.0638 8.5225 1.2049 8.4513 1.3295L4.9229 7.5042C4.6969 7.8998 4.1929 8.0372 3.7973 7.8112Z" />
+              </RepeatButton>
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Thumb Style -->
+    <Style Selector="^ /template/ Thumb#thumb">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Border Background="{TemplateBinding Background}" CornerRadius="2" />
+        </ControlTemplate>
+      </Setter>
+    </Style>
+
+    <!-- Thumb width controlled by Grid hover -->
+    <Style Selector="^ /template/ Grid:pointerover Thumb#thumb">
+      <Setter Property="Width" Value="10" />
+    </Style>
+
+    <!-- Show buttons when grid is hovered -->
+    <Style Selector="^ /template/ Grid:pointerover RepeatButton">
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+
+    <!-- Button hover effect -->
+    <Style Selector="^ /template/ Grid:pointerover RepeatButton:pointerover Path">
+      <Setter Property="Fill" Value="#c4c4c4" />
+    </Style>
+
+    <!-- Grid Interaction Styles -->
+    <Style Selector="^ /template/ Grid:pointerover">
+      <Setter Property="Background" Value="#333333" />
+    </Style>
+
+  </ControlTheme>
+</ResourceDictionary>
